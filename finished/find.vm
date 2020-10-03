@@ -1,0 +1,60 @@
+#set($layout="layout/blank.vm")
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="format-detection" content="telephone=no"/>
+		<meta name="viewport"
+          content="width=device-width,height=device-height,user-scalable=no,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0"/>
+		<title>发现</title>
+		<link href="$!{resServer}/stylesheets/app/css/swiper/swiper.min.css" rel="stylesheet" type="text/css" />
+		<link href="$!{resServer}/stylesheets/app2/reset.css" type="text/css" rel="stylesheet" />
+		<link href="$!{resServer}/stylesheets/app2/find.css" type="text/css" rel="stylesheet" />
+		<script >
+			var uploadServer = '$!{uploadServer}';
+    	</script>
+	</head>
+	<body>
+		<input  type="hidden" id="width" name="width" value="$!{width}" /> 
+		<input  type="hidden" id="artCategoryId" name="artCategoryId" value="$!{artCategoryId}" /> 
+		<input  type="hidden" id="totalPage" name="totalPage" value="$!{totalPage}" /> 
+		<div class="container">
+			<nav class="swiper-container nav-container">
+				<ul class="swiper-wrapper nav-ul">
+					<li class="swiper-slide #if(!$!artCategoryId)active-li"#else"#end">
+						<a href="findArt.htm" class="slide-a" data-url="findArt.htm">全部</a>
+					</li>
+					#foreach($cat in $!{recommendArtCategoryList})
+						#if($artCategoryId==$!{cat.id})
+							<li class="swiper-slide active-li"><a href="javascript:;" class="slide-a" data-url="findArt.htm?id=$!{cat.id}">$!{cat.name}</a></li>
+						#else
+							<li class="swiper-slide"><a href="findArt.htm?id=$!{cat.id}" class="slide-a" data-url="findArt.htm?id=$!{cat.id}">$!{cat.name}</a></li>
+						#end
+					#end
+				</ul>
+			</nav><!--nav-container end-->
+			<aside class="fall-box grid" >
+				#foreach($art in $!{homepageRecommends})
+					<div class="grid-item item">
+						<a onclick="art.detail('$!{art.artId}',#if($!{artCategoryId}) '$!{artCategoryId}' #else '0' #end,#if($!{width}) '$!{width}' #else '0' #end)"><img src="$!{uploadServer.get($!{art.getAttachment()})}?x-oss-process=image/resize,m_lfit,h_300,w_300/sharpen,100" class="item-img"/></a>
+						<section class="section-p">
+							<p class="title-p">$!{art.artName}</p>
+							<p class="name-p">#if($!{art.artist})$!{art.artist}#else 佚名#end</p>
+							<p class="price-p">#if($!{art.artType} == 0) 非卖品 #elseif($!{art.stock} == 0)已售罄#else ￥$!moneyUtils.getMoneyDesc($!{art.artPrice})#end</p>
+						</section>
+					</div><!--item end-->
+				#end
+			</aside>
+			<a href="javascript:;" class="more-a">
+				<img src="$!{resServer}/img/app2/ic_loading.gif" />
+		    </a>
+		</div>
+		
+		<script src="$!{resServer}/js/jquery.js"></script>
+		<script src="$!{resServer}/js/imagesloaded.pkgd.min.js"></script>
+        <script src="$!{resServer}/js/masonry.pkgd.min.js"></script>
+		<script src="$!{resServer}/js/app2/js/swiper/swiper.min.js"></script>
+		<script src="$!{resServer}/js/app2/js/find.js"></script>
+		
+	</body>
+</html>

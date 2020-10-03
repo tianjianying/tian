@@ -1,0 +1,42 @@
+body{
+	background: #FFC0CB;
+	padding-bottom: 2rem;
+}
+.container{
+	max-width: 64rem;
+	margin: 0 auto;
+	overflow-x: hidden;
+}
+/*瀑布流*/
+.fall-box{
+  width: 100%;
+  margin: 5% 8px 0px 8px ;
+}
+.fall-box .item{
+   width: calc((100% - 28px)/2);
+   margin-bottom: 1.5rem;
+}
+/*.fall-box .item:nth-child(1n){
+   padding: 3% 1.5% 3% 3%;
+}
+.fall-box .item:nth-child(2n){
+   padding: 3% 3% 3% 1.5%;
+}*/
+
+.fall-box .item-img{
+	width:100% ;
+	display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
